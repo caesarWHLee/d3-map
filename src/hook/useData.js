@@ -1,0 +1,22 @@
+import { useEffect, useState } from "react"
+import {json} from 'd3'
+import {feature} from 'topojson'
+
+const jsonUrl = 'https://unpkg.com/world-atlas@2.0.2/countries-50m.json'
+// const jsonUrl = 'https://cdn.jsdelivr.net/npm/taiwan-atlas/counties-10t.json'
+// const jsonUrl = 'https://cdn.jsdelivr.net/npm/taiwan-atlas/counties-mercator-10t.json'
+
+export const useData = () => {
+  const [data, setData] = useState(null)
+ 
+  console.log(data)
+  useEffect(() => {
+    json(jsonUrl).then(topojsonData => {
+      console.log(topojsonData)
+      const {countries} = topojsonData.objects
+      setData(feature(topojsonData, countries))
+    })
+  }, [])
+
+  return data
+}
