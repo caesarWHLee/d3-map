@@ -38,5 +38,12 @@ export const Map = ({ width, height, data }) => {
     }
   }, [data, width, height])
 
-  return <SVG width={width} height={height} ref={d3Container} />
+  return (
+    <SVG
+      width={width}
+      height={height}
+      viewBox="0 0 500 400"
+      ref={d3Container}
+    />
+  )
 }
