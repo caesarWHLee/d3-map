@@ -1,9 +1,7 @@
-import { D3Container } from "./components/D3Container";
-
+import { D3Container } from './components/D3Container'
 
 function App() {
-  return (<D3Container/>
-  );
+  return <D3Container />
 }
 
-export default App;
+export default App

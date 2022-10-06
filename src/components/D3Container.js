@@ -1,8 +1,8 @@
-import { Map } from "./D3Map"
-import { useData } from "../hook/useData"
+import { Map } from './D3Map'
+import { useData } from '../hook/useData'
 
-const width = 480;
-const height = 500;
+const width = 480
+const height = 500
 
 export const D3Container = () => {
   const data = useData()
@@ -10,8 +10,10 @@ export const D3Container = () => {
     return <pre>Loading...</pre>
   }
 
-  return <>
-<Map width={width} height={height} data={data}/>
-<Map width={width} height={height} data={data}/>
-  </>
+  return (
+    <>
+      <Map width={width} height={height} data={data} />
+      <Map width={width} height={height} data={data} />
+    </>
+  )
 }
