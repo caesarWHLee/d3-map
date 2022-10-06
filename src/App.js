@@ -1,18 +1,8 @@
-import { useData } from "./hook/useData";
-import { Marks } from "./components/Marks";
+import { D3Container } from "./components/D3Container";
 
-const width = 960;
-const height = 500;
 
 function App() {
-  const data = useData()
-  if (!data) {
-    return <pre>Loading...</pre>
-  }
-  return (
-    <svg width={width} height={height}>
-      <Marks data={data} />
-    </svg>
+  return (<D3Container/>
   );
 }
 
