@@ -10,7 +10,6 @@ const jsonUrl = 'https://cdn.jsdelivr.net/npm/taiwan-atlas/counties-10t.json'
 export const useData = () => {
   const [data, setData] = useState(null)
 
-  console.log(data)
   useEffect(() => {
     if (!data) {
       console.log('get topojson')
