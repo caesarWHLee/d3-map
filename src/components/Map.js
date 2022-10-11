@@ -178,7 +178,7 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
                 const code = feature['properties']['TOWNCODE']
                 return code.slice(code.length - 3, code.length)
               })()}
-              fill={!townId && countyId === activeId ? 'red' : 'white'}
+              fill={!townId && countyId === activeId ? 'lightcoral' : 'white'}
               stroke="gray"
               strokeWidth="0.3"
               onClick={townClicked.bind(null, feature)}
@@ -203,10 +203,10 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
               fill={
                 !villageId
                   ? townId === activeId
-                    ? 'red'
+                    ? 'lightcoral'
                     : 'white'
                   : feature['properties']['VILLCODE'] === activeId
-                  ? 'red'
+                  ? 'lightcoral'
                   : 'white'
               }
               stroke="gray"
