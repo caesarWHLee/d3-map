@@ -11,6 +11,8 @@
     "topojson": "^3.0.2"
   },
   "scripts": {
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -32,6 +34,8 @@
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "gh-pages": "^4.0.0",
     "prettier": "1.19.1"
-  }
+  },
+  "homepage": "https://caesarWHLee.github.io/d3-map"
 }
