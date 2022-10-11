@@ -120,7 +120,7 @@ export const Map = ({ dimension, mapData }) => {
         id="id-background"
         width={width}
         height={height}
-        fill="yellow"
+        fill="white"
         onClick={countyClicked.bind(null, null)}
       />
       <g id="control">
@@ -132,7 +132,8 @@ export const Map = ({ dimension, mapData }) => {
               id={`id-${feature['properties']['COUNTYCODE']}`}
               data-county-code={feature['properties']['COUNTYCODE']}
               fill="white"
-              stroke="black"
+              stroke="gray"
+              strokeWidth="0.3"
               strokeLinejoin="round"
               onClick={countyClicked.bind(null, feature)}
             />
@@ -150,7 +151,8 @@ export const Map = ({ dimension, mapData }) => {
                 return code.slice(code.length - 3, code.length)
               })()}
               fill="white"
-              stroke="black"
+              stroke="gray"
+              strokeWidth="0.3"
               onClick={townClicked.bind(null, feature)}
             />
           ))}
@@ -171,7 +173,8 @@ export const Map = ({ dimension, mapData }) => {
                 return code.slice(code.length - 3, code.length)
               })()}
               fill="white"
-              stroke="black"
+              stroke="gray"
+              strokeWidth="0.1"
               onClick={townClicked.bind(null, feature)}
             />
           ))}
