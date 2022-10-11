@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import { useElementDimension } from '../hook/useElementDimension'
 import { Map } from './Map'
 import { MapCompareButton } from './MapCompareButton'
 
@@ -16,17 +17,9 @@ const defaultMapObject = {
 }
 
 export const MapControl = ({ mapData }) => {
-  const [dimension, setDimension] = useState(null)
   const [mapObject, setMapObject] = useState(defaultMapObject)
   const [compareMode, setCompareMode] = useState(false)
-  const wrapperRef = useCallback((node) => {
-    if (!node) console.error('wtf the node is', node)
-    const { width, height } = node.getBoundingClientRect()
-    setDimension({
-      width,
-      height,
-    })
-  }, [])
+  const { elementRef, dimension } = useElementDimension()
 
   if (compareMode) {
     const splitDimension = {
@@ -35,7 +28,7 @@ export const MapControl = ({ mapData }) => {
     }
 
     return (
-      <Wrapper ref={wrapperRef}>
+      <Wrapper ref={elementRef}>
         {dimension && (
           <>
             <Map
@@ -65,7 +58,7 @@ export const MapControl = ({ mapData }) => {
     )
   } else {
     return (
-      <Wrapper ref={wrapperRef}>
+      <Wrapper ref={elementRef}>
         {dimension && (
           <Map
             dimension={dimension}
