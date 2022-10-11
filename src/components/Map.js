@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
   const { xyz, countyId, townId } = mapObject
