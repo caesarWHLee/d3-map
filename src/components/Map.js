@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 import { useEffect } from 'react'
 
 export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
-  const { xyz, countyId, townId } = mapObject
+  const { xyz, countyId, townId, villageId, activeId } = mapObject
   const { width, height } = dimension
   const { counties, towns, villages } = mapData
   const projection = d3.geoMercator().fitExtent(
@@ -77,28 +77,64 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
       console.log('---')
 
       console.log('set countyId = ', countyId)
-      setMapObject({ xyz, countyId, townId: '' })
+      setMapObject((mapObject) => ({
+        ...mapObject,
+        xyz,
+        countyId,
+        townId: '',
+        activeId: countyId,
+      }))
     } else {
       const xyz = [width / 2, height / 2, 1]
-      setMapObject({ xyz, countyId: '', townId: '' })
+      setMapObject((mapObject) => ({
+        ...mapObject,
+        xyz,
+        countyId: '',
+        townId: '',
+        activeId: '',
+      }))
     }
   }
   const townClicked = (d) => {
-    if (d) {
-      const xyz = getXYZ(d)
+    const xyz = getXYZ(d)
 
-      const countyId = d['properties']['COUNTYCODE']
-      const townId = d['properties']['TOWNCODE']
-      console.log('---')
-      console.log('town_clicked:')
-      console.log('path id is:', `#id-${townId}`)
-      console.log('d is:', d)
-      console.log('---')
+    const countyId = d['properties']['COUNTYCODE']
+    const townId = d['properties']['TOWNCODE']
+    console.log('---')
+    console.log('town_clicked:')
+    console.log('path id is:', `#id-${townId}`)
+    console.log('d is:', d)
+    console.log('---')
 
-      setMapObject({ xyz, countyId, townId })
-    } else {
-      console.error('wtf')
-    }
+    setMapObject((mapObject) => ({
+      ...mapObject,
+      xyz,
+      countyId,
+      townId,
+      activeId: townId,
+    }))
+  }
+  const villageClicked = (d) => {
+    const countyId = d['properties']['COUNTYCODE']
+    const townId = d['properties']['TOWNCODE']
+    const villageId = d['properties']['VILLCODE']
+
+    console.log('---')
+    console.log('town_clicked:')
+    console.log('path id is:', `#id-${villageId}`)
+    console.log('d is:', d)
+    console.log('---')
+
+    console.log(
+      `countyId = ${countyId}, townId = ${townId}, villageId = ${villageId}`
+    )
+    setMapObject((mapObject) => ({
+      ...mapObject,
+      countyId,
+      townId,
+      villageId,
+      activeId: villageId,
+    }))
   }
   return (
     <svg
@@ -136,13 +172,13 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
             <path
               key={feature.properties.TOWNCODE}
               d={path(feature)}
-              id={`id-${feature['properties']['TOWNCODE']}`}
+              id={id}
               data-county-code={feature['properties']['COUNTYCODE']}
               data-town-code={(() => {
                 const code = feature['properties']['TOWNCODE']
                 return code.slice(code.length - 3, code.length)
               })()}
-              fill="white"
+              fill={!townId && countyId === activeId ? 'red' : 'white'}
               stroke="gray"
               strokeWidth="0.3"
               onClick={townClicked.bind(null, feature)}
@@ -164,10 +200,18 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
                 const code = feature['properties']['VILLCODE']
                 return code.slice(code.length - 3, code.length)
               })()}
-              fill="white"
+              fill={
+                !villageId
+                  ? townId === activeId
+                    ? 'red'
+                    : 'white'
+                  : feature['properties']['VILLCODE'] === activeId
+                  ? 'red'
+                  : 'white'
+              }
               stroke="gray"
               strokeWidth="0.1"
-              onClick={townClicked.bind(null, feature)}
+              onClick={villageClicked.bind(null, feature)}
             />
           ))}
         </g>

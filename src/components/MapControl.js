@@ -14,6 +14,8 @@ const defaultMapObject = {
   xyz: null,
   countyId: '',
   townId: '',
+  villageId: '',
+  activeId: '',
 }
 
 export const MapControl = ({ mapData }) => {
