@@ -1,4 +1,4 @@
-import { D3Container } from './components/D3Container'
+// import { D3Container } from './components/D3Container'
 import { createGlobalStyle } from 'styled-components'
 import { MapContainer } from './components/MapContainer'
 

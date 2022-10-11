@@ -1,10 +1,8 @@
 import * as d3 from 'd3'
 import { useEffect, useState } from 'react'
 
-export const Map = ({ dimension, mapData }) => {
-  const [xyz, setXYZ] = useState(null)
-  const [countyId, setCountyId] = useState('')
-  const [townId, setTownId] = useState('')
+export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
+  const { xyz, countyId, townId } = mapObject
   const { width, height } = dimension
   const { counties, towns, villages } = mapData
   const projection = d3.geoMercator().fitExtent(
@@ -31,7 +29,7 @@ export const Map = ({ dimension, mapData }) => {
   useEffect(() => {
     if (xyz) {
       const zoom = (xyz) => {
-        const g = d3.select('#control')
+        const g = d3.select(`#${id}-control`)
         g.transition()
           .duration(750)
           .attr(
@@ -41,7 +39,7 @@ export const Map = ({ dimension, mapData }) => {
             }, -${xyz[1]})`
           )
 
-        g.selectAll(['#counties', '#towns', '#villages'])
+        g.selectAll([`#${id}-#counties`, `#${id}-towns`, `#${id}-villages`])
           .style('stroke', 'black')
           // .style('stroke-linejoin', 'round')
           // .style('stroke-linecap', 'round')
@@ -79,14 +77,10 @@ export const Map = ({ dimension, mapData }) => {
       console.log('---')
 
       console.log('set countyId = ', countyId)
-      setCountyId(countyId)
-      setTownId('')
-      setXYZ(xyz)
+      setMapObject({ xyz, countyId, townId: '' })
     } else {
       const xyz = [width / 2, height / 2, 1]
-      setCountyId('')
-      setTownId('')
-      setXYZ(xyz)
+      setMapObject({ xyz, countyId: '', townId: '' })
     }
   }
   const townClicked = (d) => {
@@ -101,9 +95,7 @@ export const Map = ({ dimension, mapData }) => {
       console.log('d is:', d)
       console.log('---')
 
-      setCountyId(countyId)
-      setTownId(townId)
-      setXYZ(xyz)
+      setMapObject({ xyz, countyId, townId })
     } else {
       console.error('wtf')
     }
@@ -123,8 +115,8 @@ export const Map = ({ dimension, mapData }) => {
         fill="white"
         onClick={countyClicked.bind(null, null)}
       />
-      <g id="control">
-        <g id="counties">
+      <g id={`${id}-control`}>
+        <g id={`${id}-counties`}>
           {counties.features.map((feature) => (
             <path
               key={feature.properties.COUNTYCODE}
@@ -139,7 +131,7 @@ export const Map = ({ dimension, mapData }) => {
             />
           ))}
         </g>
-        <g id="towns">
+        <g id={`${id}-towns`}>
           {displayingTowns?.features?.map((feature) => (
             <path
               key={feature.properties.TOWNCODE}
@@ -157,7 +149,7 @@ export const Map = ({ dimension, mapData }) => {
             />
           ))}
         </g>
-        <g id="villages">
+        <g id={`${id}-villages`}>
           {displayingVillages?.features?.map((feature) => (
             <path
               key={feature.properties.VILLCODE}
