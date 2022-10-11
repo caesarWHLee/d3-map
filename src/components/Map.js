@@ -155,7 +155,7 @@ export const Map = ({ dimension, mapData }) => {
             />
           ))}
         </g>
-        <g id="towns">
+        <g id="villages">
           {displayingVillages?.features?.map((feature) => (
             <path
               key={feature.properties.VILLCODE}
