@@ -82,6 +82,7 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
         xyz,
         countyId,
         townId: '',
+        villageId: '',
         activeId: countyId,
       }))
     } else {
@@ -91,6 +92,7 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
         xyz,
         countyId: '',
         townId: '',
+        villageId: '',
         activeId: '',
       }))
     }
@@ -111,6 +113,7 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
       xyz,
       countyId,
       townId,
+      villageId: '',
       activeId: townId,
     }))
   }
@@ -120,7 +123,7 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
     const villageId = d['properties']['VILLCODE']
 
     console.log('---')
-    console.log('town_clicked:')
+    console.log('village_clicked:')
     console.log('path id is:', `#id-${villageId}`)
     console.log('d is:', d)
     console.log('---')
@@ -136,6 +139,7 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
       activeId: villageId,
     }))
   }
+
   return (
     <svg
       preserveAspectRatio="xMidYMid"
