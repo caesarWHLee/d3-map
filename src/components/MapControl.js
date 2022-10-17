@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useElementDimension } from '../hook/useElementDimension'
 import { Map } from './Map'
 import { MapCompareButton } from './MapCompareButton'
+import { MapTooltip } from './MapTooltip'
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -18,9 +19,16 @@ const defaultMapObject = {
   activeId: '',
 }
 
+const defaultTooltip = {
+  show: false,
+  text: '',
+  coordinate: [],
+}
+
 export const MapControl = ({ mapData }) => {
   const [mapObject, setMapObject] = useState(defaultMapObject)
   const [compareMode, setCompareMode] = useState(false)
+  const [tooltip, setTooltip] = useState(defaultTooltip)
   const { elementRef, dimension } = useElementDimension()
 
   if (compareMode) {
@@ -39,6 +47,7 @@ export const MapControl = ({ mapData }) => {
               id="first"
               mapObject={mapObject}
               setMapObject={setMapObject}
+              setTooltip={setTooltip}
             />
             <Map
               dimension={splitDimension}
@@ -46,6 +55,7 @@ export const MapControl = ({ mapData }) => {
               id="second"
               mapObject={mapObject}
               setMapObject={setMapObject}
+              setTooltip={setTooltip}
             />
           </>
         )}
@@ -55,6 +65,7 @@ export const MapControl = ({ mapData }) => {
             setCompareMode((v) => !v)
           }}
         />
+        <MapTooltip tooltip={tooltip} />
       </Wrapper>
     )
   } else {
@@ -67,6 +78,7 @@ export const MapControl = ({ mapData }) => {
             id="first"
             mapObject={mapObject}
             setMapObject={setMapObject}
+            setTooltip={setTooltip}
           />
         )}
         <MapCompareButton
@@ -75,6 +87,7 @@ export const MapControl = ({ mapData }) => {
             setCompareMode((v) => !v)
           }}
         />
+        <MapTooltip tooltip={tooltip} />
       </Wrapper>
     )
   }

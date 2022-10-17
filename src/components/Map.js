@@ -1,7 +1,14 @@
 import * as d3 from 'd3'
 import { useEffect } from 'react'
 
-export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
+export const Map = ({
+  dimension,
+  mapData,
+  id,
+  mapObject,
+  setMapObject,
+  setTooltip,
+}) => {
   const { currentFeature, countyId, townId, villageId, activeId } = mapObject
   const { width, height } = dimension
   const { counties, towns, villages } = mapData
@@ -168,6 +175,26 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
               strokeWidth="0.3"
               strokeLinejoin="round"
               onClick={countyClicked.bind(null, feature)}
+              onMouseOver={() =>
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  show: true,
+                  text: feature['properties']['COUNTYNAME'],
+                }))
+              }
+              onMouseMove={(e) => {
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  coordinate: [e.clientX, e.clientY],
+                }))
+              }}
+              onMouseOut={() =>
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  show: false,
+                  text: '',
+                }))
+              }
             />
           ))}
         </g>
@@ -186,6 +213,26 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
               stroke="gray"
               strokeWidth="0.3"
               onClick={townClicked.bind(null, feature)}
+              onMouseOver={() =>
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  show: true,
+                  text: feature['properties']['TOWNNAME'],
+                }))
+              }
+              onMouseMove={(e) => {
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  coordinate: [e.clientX, e.clientY],
+                }))
+              }}
+              onMouseOut={() =>
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  show: false,
+                  text: '',
+                }))
+              }
             />
           ))}
         </g>
@@ -216,6 +263,27 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
               stroke="gray"
               strokeWidth="0.1"
               onClick={villageClicked.bind(null, feature)}
+              onMouseOver={() => {
+                console.log(feature)
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  show: true,
+                  text: feature['properties']['VILLNAME'],
+                }))
+              }}
+              onMouseMove={(e) => {
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  coordinate: [e.clientX, e.clientY],
+                }))
+              }}
+              onMouseOut={() =>
+                setTooltip((tooltip) => ({
+                  ...tooltip,
+                  show: false,
+                  text: '',
+                }))
+              }
             />
           ))}
         </g>
