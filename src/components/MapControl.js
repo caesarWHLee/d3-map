@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `
 
 const defaultMapObject = {
-  xyz: null,
+  currentFeature: null,
   countyId: '',
   townId: '',
   villageId: '',
@@ -53,7 +53,6 @@ export const MapControl = ({ mapData }) => {
           compareMode={compareMode}
           onCompareModeChange={() => {
             setCompareMode((v) => !v)
-            setMapObject(defaultMapObject)
           }}
         />
       </Wrapper>
@@ -74,7 +73,6 @@ export const MapControl = ({ mapData }) => {
           compareMode={compareMode}
           onCompareModeChange={() => {
             setCompareMode((v) => !v)
-            setMapObject(defaultMapObject)
           }}
         />
       </Wrapper>

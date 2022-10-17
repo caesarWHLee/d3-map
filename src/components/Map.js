@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 import { useEffect } from 'react'
 
 export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
-  const { xyz, countyId, townId, villageId, activeId } = mapObject
+  const { currentFeature, countyId, townId, villageId, activeId } = mapObject
   const { width, height } = dimension
   const { counties, towns, villages } = mapData
   const projection = d3.geoMercator().fitExtent(
@@ -27,69 +27,71 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
   )
 
   useEffect(() => {
-    if (xyz) {
-      const zoom = (xyz) => {
-        const g = d3.select(`#${id}-control`)
-        g.transition()
-          .duration(750)
-          .attr(
-            'transform',
-            `translate(${width / 2}, ${height / 2})scale(${xyz[2]})translate(-${
-              xyz[0]
-            }, -${xyz[1]})`
-          )
+    const getXYZ = (feature) => {
+      if (feature) {
+        const bounds = path.bounds(feature)
+        const wScale = (bounds[1][0] - bounds[0][0]) / width
+        const hScale = (bounds[1][1] - bounds[0][1]) / height
+        const z = 0.56 / Math.max(wScale, hScale)
 
-        g.selectAll([`#${id}-#counties`, `#${id}-towns`, `#${id}-villages`])
-          .style('stroke', 'black')
-          // .style('stroke-linejoin', 'round')
-          // .style('stroke-linecap', 'round')
-          // .style('stroke-width', '0px')
-          .transition()
-          .delay(750)
-          .duration(0)
-          // .style('stroke-width', `${0.3 / xyz[2]}px`)
-          .selectAll('.villages')
-          .attr('d', path.pointRadius(20.0 / xyz[2]))
+        const centroid = path.centroid(feature)
+        const [x, y] = centroid
+        return [x, y, z]
+      } else {
+        // default xyz
+        return [width / 2, height / 2, 1]
       }
-      zoom(xyz)
     }
-  }, [xyz])
 
-  const getXYZ = (d) => {
-    const bounds = path.bounds(d)
-    const wScale = (bounds[1][0] - bounds[0][0]) / width
-    const hScale = (bounds[1][1] - bounds[0][1]) / height
-    const z = 0.56 / Math.max(wScale, hScale)
+    const zoom = () => {
+      const xyz = getXYZ(currentFeature)
+      const g = d3.select(`#${id}-control`)
+      g.transition()
+        .duration(750)
+        .attr(
+          'transform',
+          `translate(${width / 2}, ${height / 2})scale(${xyz[2]})translate(-${
+            xyz[0]
+          }, -${xyz[1]})`
+        )
 
-    const centroid = path.centroid(d)
-    const [x, y] = centroid
-    return [x, y, z]
-  }
+      g.selectAll([`#${id}-#counties`, `#${id}-towns`, `#${id}-villages`])
+        .style('stroke', 'black')
+        // .style('stroke-linejoin', 'round')
+        // .style('stroke-linecap', 'round')
+        .style('stroke-width', '0px')
+        .transition()
+        .delay(750)
+        .duration(0)
+        .style('stroke-width', `${0.3 / xyz[2]}px`)
+        .selectAll('.villages')
+        .attr('d', path.pointRadius(20.0 / xyz[2]))
+    }
+    zoom()
+  }, [currentFeature, width, height])
 
-  const countyClicked = (d) => {
-    if (d) {
-      const xyz = getXYZ(d)
-      const countyId = d['properties']['COUNTYCODE']
+  const countyClicked = (feature) => {
+    if (feature) {
+      const countyId = feature['properties']['COUNTYCODE']
       console.log('---')
       console.log('county_clicked:')
       console.log('path id is:', `#id-${countyId}`)
-      console.log('d is:', d)
+      console.log('d is:', feature)
       console.log('---')
 
       console.log('set countyId = ', countyId)
       setMapObject((mapObject) => ({
         ...mapObject,
-        xyz,
+        currentFeature: feature,
         countyId,
         townId: '',
         villageId: '',
         activeId: countyId,
       }))
     } else {
-      const xyz = [width / 2, height / 2, 1]
       setMapObject((mapObject) => ({
         ...mapObject,
-        xyz,
+        currentFeature: null,
         countyId: '',
         townId: '',
         villageId: '',
@@ -97,35 +99,33 @@ export const Map = ({ dimension, mapData, id, mapObject, setMapObject }) => {
       }))
     }
   }
-  const townClicked = (d) => {
-    const xyz = getXYZ(d)
-
-    const countyId = d['properties']['COUNTYCODE']
-    const townId = d['properties']['TOWNCODE']
+  const townClicked = (feature) => {
+    const countyId = feature['properties']['COUNTYCODE']
+    const townId = feature['properties']['TOWNCODE']
     console.log('---')
     console.log('town_clicked:')
     console.log('path id is:', `#id-${townId}`)
-    console.log('d is:', d)
+    console.log('d is:', feature)
     console.log('---')
 
     setMapObject((mapObject) => ({
       ...mapObject,
-      xyz,
+      currentFeature: feature,
       countyId,
       townId,
       villageId: '',
       activeId: townId,
     }))
   }
-  const villageClicked = (d) => {
-    const countyId = d['properties']['COUNTYCODE']
-    const townId = d['properties']['TOWNCODE']
-    const villageId = d['properties']['VILLCODE']
+  const villageClicked = (feature) => {
+    const countyId = feature['properties']['COUNTYCODE']
+    const townId = feature['properties']['TOWNCODE']
+    const villageId = feature['properties']['VILLCODE']
 
     console.log('---')
     console.log('village_clicked:')
     console.log('path id is:', `#id-${villageId}`)
-    console.log('d is:', d)
+    console.log('d is:', feature)
     console.log('---')
 
     console.log(
