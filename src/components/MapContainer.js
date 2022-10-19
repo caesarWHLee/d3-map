@@ -2,6 +2,11 @@ import { useMapData } from '../hook/useMapData'
 import { CollapsibleWrapper } from './collapsible/CollapsibleWrapper'
 import { MapControl } from './MapControl'
 import styled from 'styled-components'
+import EVC from '@readr-media/react-election-votes-comparison'
+import { useEffect, useState } from 'react'
+
+const DataLoader = EVC.DataLoader
+const EVCComponent = EVC.ReactComponent
 
 const Collapse = styled(CollapsibleWrapper)`
   width: 300px;
@@ -13,6 +18,34 @@ const Collapse = styled(CollapsibleWrapper)`
 
 export const MapContainer = () => {
   const mapData = useMapData()
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    let dataLoader = new DataLoader({
+      apiOrigin: 'https://whoareyou-gcs.readr.tw/elections',
+      year: '2018', // 年份
+      type: 'councilMember', // 選舉類型
+      area: 'allDistricts', // 縣市
+    })
+    const handleError = (errMsg, errObj) => {
+      // do something for loading error
+      console.log(errMsg, errObj)
+    }
+    const handleData = (data) => {
+      // call React component `setState`
+      setData(data)
+    }
+    dataLoader.addEventListener('error', handleError)
+    dataLoader.addEventListener('data', handleData)
+    // after register event listener
+    // start to load data periodically
+    dataLoader.loadDataPeriodically()
+    return () => {
+      dataLoader.removeEventListener('error', handleError)
+      dataLoader.removeEventListener('data', handleData)
+      dataLoader = null
+    }
+  }, [])
 
   if (!mapData) {
     return <p>Loading...</p>
@@ -22,25 +55,15 @@ export const MapContainer = () => {
     <>
       <MapControl mapData={mapData} />
       <Collapse title={'開票資訊'}>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget
-          efficitur mauris. Cras accumsan metus non erat mattis feugiat. Fusce
-          cursus, ligula eu convallis dapibus, est justo laoreet diam, non
-          finibus sem neque in quam. Vivamus sit amet velit ultrices, dignissim
-          dolor vitae, vulputate magna. Suspendisse potenti. Proin aliquam
-          tempor ligula at elementum. Sed vitae placerat diam. Pellentesque
-          vehicula elementum magna, in pellentesque massa accumsan quis.
-          Pellentesque efficitur pulvinar viverra. Sed non nibh semper,
-          efficitur est ut, mollis diam. Aliquam erat volutpat. Vestibulum
-          ornare lacus eget libero accumsan commodo. Phasellus convallis tempus
-          diam, id dignissim mauris ultricies ac. In sem quam, auctor id tellus
-          ac, interdum bibendum libero. Vestibulum euismod libero at accumsan
-          pharetra. Etiam non pellentesque ligula. Sed turpis arcu, tempor sit
-          amet risus id, dapibus accumsan magna. Aenean leo massa, suscipit ut
-          imperdiet eu, laoreet sit amet mauris. Phasellus at nibh aliquet,
-          semper mi in, posuere turpis. Donec vitae est finibus, vehicula arcu
-          eu, gravida arcu. Nunc vitae velit laoreet, vehicula leo sit amet,
-        </div>
+        {data ? (
+          <EVCComponent
+            year={2018}
+            title="臺北市議員選舉"
+            districts={data.districts}
+          />
+        ) : (
+          <div>testing</div>
+        )}
       </Collapse>
     </>
   )
