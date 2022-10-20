@@ -25,7 +25,7 @@ export const MapContainer = () => {
       apiOrigin: 'https://whoareyou-gcs.readr.tw/elections',
       year: '2018', // 年份
       type: 'councilMember', // 選舉類型
-      area: 'allDistricts', // 縣市
+      area: 'taipeiCity', // 縣市
     })
     const handleError = (errMsg, errObj) => {
       // do something for loading error
@@ -59,7 +59,7 @@ export const MapContainer = () => {
           <EVCComponent
             year={2018}
             title="臺北市議員選舉"
-            districts={data.districts}
+            districts={data?.districts || data?.taipeiCity?.districts}
           />
         ) : (
           <div>testing</div>
