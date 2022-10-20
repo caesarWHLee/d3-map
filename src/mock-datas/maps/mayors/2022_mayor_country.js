@@ -4,7 +4,7 @@ export const mockData = {
     county: null,
     town: null,
     vill: null,
-    voteRate: 80.0,
+    profRate: 80.0,
     candidates: [
       {
         canNo: 1,
@@ -35,7 +35,7 @@ export const mockData = {
       county: '63000',
       town: null,
       vill: null,
-      voteRate: 80.0,
+      profRate: 80.0,
       candidates: [
         {
           canNo: 1,
@@ -65,7 +65,7 @@ export const mockData = {
       county: '65000',
       town: null,
       vill: null,
-      voteRate: 80.0,
+      profRate: 80.0,
       candidates: [
         {
           canNo: 1,
@@ -95,7 +95,7 @@ export const mockData = {
       county: '68000',
       town: null,
       vill: null,
-      voteRate: 80.0,
+      profRate: 80.0,
       candidates: [
         {
           canNo: 1,

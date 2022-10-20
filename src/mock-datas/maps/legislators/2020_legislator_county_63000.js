@@ -5,7 +5,7 @@ export const mockData = {
       county: '63000',
       area: '01',
       vill: null,
-      voteRate: 80.0,
+      profRate: 80.0,
       candidates: [
         {
           canNo: 1,
@@ -35,7 +35,7 @@ export const mockData = {
       county: '63000',
       area: '02',
       vill: null,
-      voteRate: 80.0,
+      profRate: 80.0,
       candidates: [
         {
           canNo: 1,
@@ -65,7 +65,7 @@ export const mockData = {
       county: '63000',
       area: '03',
       vill: null,
-      voteRate: 80.0,
+      profRate: 80.0,
       candidates: [
         {
           canNo: 1,
