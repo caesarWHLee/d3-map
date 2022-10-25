@@ -1,5 +1,5 @@
 {
-  "name": "d3-map",
+  "name": "election-map",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,5 +38,5 @@
     "gh-pages": "^4.0.0",
     "prettier": "1.19.1"
   },
-  "homepage": "https://caesarWHLee.github.io/d3-map"
+  "homepage": "https://caesarWHLee.github.io/election-map",
 }
