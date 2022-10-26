@@ -32,7 +32,6 @@ const CollapseContent = styled.div`
   max-height: ${({ collapse, scrollHeight }) =>
     collapse ? `${scrollHeight}px` : '0'};
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
 
   ${({ collapse, scrollHeight }) =>
     collapse
@@ -47,7 +46,7 @@ const CollapseContent = styled.div`
 `
 
 export const CollapsibleWrapper = ({ children, title, className }) => {
-  const [collapse, setCollapse] = useState(false)
+  const [collapse, setCollapse] = useState(true)
   const [scrollHeight, setScrollHeight] = useState(0)
   const buttonRef = useCallback((node) => {
     if (node && node.nextElementSibling) {
