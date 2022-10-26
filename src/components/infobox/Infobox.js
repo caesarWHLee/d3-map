@@ -38,7 +38,6 @@ const ElectedIcon = styled.img`
 `
 
 const PresidentInfobox = ({ level, profRate, candidates }) => {
-  console.log('level, profRate, candidates', level, profRate, candidates)
   return (
     <InfoboxScrollWrapper>
       <PresidentTitle>
@@ -72,8 +71,6 @@ const MayorCandidate = styled.p`
 `
 
 const MayorInfobox = ({ level, profRate, candidates }) => {
-  console.log('level, profRate, candidates', level, profRate, candidates)
-
   if (level === -1) {
     return (
       <InfoboxScrollWrapper>
@@ -129,8 +126,6 @@ const LegislatorCandidate = styled.div`
 `
 
 const LegislatorInfobox = ({ level, profRate, districts }) => {
-  console.log('level, profRate, candidates', level, profRate, districts)
-
   if (level === -1) {
     return (
       <InfoboxScrollWrapper>
@@ -197,7 +192,6 @@ const CouncilmanCandidate = styled.div`
 `
 
 const CouncilmanInfobox = ({ level, profRate, districts }) => {
-  console.log('level, profRate, districts', level, profRate, districts)
   if (level === -1) {
     return (
       <InfoboxScrollWrapper>

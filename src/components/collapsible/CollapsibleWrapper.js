@@ -53,7 +53,6 @@ export const CollapsibleWrapper = ({ children, title, className }) => {
       const contentNode = node.nextElementSibling
       const resizeObserver = new ResizeObserver(() => {
         if (scrollHeight !== contentNode.scrollHeight) {
-          console.log(contentNode.scrollHeight)
           setScrollHeight(contentNode.scrollHeight)
         }
       })
@@ -62,7 +61,6 @@ export const CollapsibleWrapper = ({ children, title, className }) => {
     }
   }, [])
 
-  console.log('rerender?')
   return (
     <Wrapper className={className}>
       <CollapseButton
