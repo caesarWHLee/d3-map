@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
   }
+  * {
+    box-sizing: border-box;
+  }
 `
 function App() {
   return (
