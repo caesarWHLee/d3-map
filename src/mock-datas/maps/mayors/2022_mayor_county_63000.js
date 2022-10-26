@@ -22,7 +22,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '黃珊珊',
           party: '民眾黨',
           tksRate: 38.61,
@@ -52,7 +52,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '黃珊珊',
           party: '民眾黨',
           tksRate: 38.61,
@@ -82,7 +82,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '黃珊珊',
           party: '民眾黨',
           tksRate: 38.61,

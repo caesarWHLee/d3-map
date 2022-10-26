@@ -22,13 +22,15 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '黃珊珊',
           party: '民眾黨',
           tksRate: 38.61,
           candVictor: ' ',
         },
       ],
+    },
+    {
       range: '台北市 松山區 莊敬里',
       county: '63000',
       town: '010',
@@ -50,13 +52,15 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '黃珊珊',
           party: '民眾黨',
           tksRate: 38.61,
           candVictor: ' ',
         },
       ],
+    },
+    {
       range: '台北市 松山區 新益里',
       county: '63000',
       town: '010',
@@ -78,7 +82,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '黃珊珊',
           party: '民眾黨',
           tksRate: 38.61,

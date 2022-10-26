@@ -1,4 +1,11 @@
 export const mockData = {
+  summary: {
+    range: '台北市',
+    county: '63000',
+    town: null,
+    vill: null,
+    profRate: 80.0,
+  },
   districts: [
     {
       range: '台北市 第一選區',
@@ -22,7 +29,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '李婉鈺',
           party: '一邊一國行動黨',
           tksRate: 3.21,
@@ -52,7 +59,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '李婉鈺',
           party: '一邊一國行動黨',
           tksRate: 3.21,
@@ -82,7 +89,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '李婉鈺',
           party: '一邊一國行動黨',
           tksRate: 3.21,

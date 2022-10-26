@@ -23,7 +23,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '李婉鈺',
           party: '一邊一國行動黨',
           tksRate: 3.21,
@@ -53,7 +53,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '李婉鈺',
           party: '一邊一國行動黨',
           tksRate: 3.21,
@@ -83,7 +83,7 @@ export const mockData = {
           candVictor: ' ',
         },
         {
-          canNo: 2,
+          canNo: 3,
           name: '李婉鈺',
           party: '一邊一國行動黨',
           tksRate: 3.21,
