@@ -242,6 +242,12 @@ export const Map = ({
           ))}
         </g>
         <g id={`${id}-villages`}>
+          {/* <path
+            d={path(displayingVillages)}
+            fill="none"
+            stroke="blue"
+            strokeWidth="1"
+          /> */}
           {displayingVillages?.features?.map((feature) => (
             <path
               key={feature.properties.VILLCODE}
@@ -269,7 +275,6 @@ export const Map = ({
               strokeWidth="0.1"
               onClick={villageClicked.bind(null, feature)}
               onMouseOver={() => {
-                console.log(feature)
                 setTooltip((tooltip) => ({
                   ...tooltip,
                   show: true,
